@@ -1,0 +1,631 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #b8a3a3;
+  color: #333;
+  overflow-x: hidden;
+  position: relative;
+  background-image: url('/background1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.heart-intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 1000;
+  opacity: 1;
+  animation: fadeOutIntro 1.5s forwards ease-in-out; /* Mờ đi trong 1.5 giây */
+}
+
+.heart-intro.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes fadeOutIntro {
+  0% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+      pointer-events: none;
+  }
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInContent 2.5s forwards ease-in-out; /* Hiện ra trong 1.5 giây */
+}
+
+.container.fade-in {
+  opacity: 1;
+}
+
+@keyframes fadeInContent {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+.door {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-image: url('/intro.jpg');
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.5s ease-in-out;
+}
+
+.door-left {
+  transform-origin: left;
+  background-position: right;
+  transform: translateX(0);
+  animation: openLeft 1.5s forwards ease-in-out;
+}
+
+.door-right {
+  transform-origin: right;
+  background-position: left;
+  transform: translateX(0);
+  animation: openRight 1.5s forwards ease-in-out;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 50%;
+  right: -25px; /* Lệch về phía bên phải ngoài cùng của door-left, 25px là một nửa chiều rộng của hình ảnh */
+  transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+  width: 100px; /* Kích thước của hình ảnh ổ khóa */
+  height: 100px;
+  z-index: 1001; /* Đảm bảo hình ảnh nằm trên cả hai cánh cửa */
+}
+
+@keyframes openLeft {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+@keyframes openRight {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(100%);
+  }
+}
+
+/* .container {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.container.fade-in {
+  opacity: 1;
+} */
+
+/* Falling Hearts */
+.hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  color: #d32f2f;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% {
+      transform: translateY(-100px);
+      opacity: 0.8;
+  }
+  100% {
+      transform: translateY(100vh);
+      opacity: 0;
+  }
+}
+
+/* Header Section with Carousel */
+.header {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+.carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 120%;
+  background-position: 90% 35%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  filter: brightness(0.5);
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.header-content h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
+  margin: 0;
+  color: #fff;
+}
+
+.header-content p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.logo {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.prev-btn {
+  left: 20px;
+}
+
+.next-btn {
+  right: 20px;
+}
+
+/* Countdown Timer */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer span {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.timer p {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+/* abc Section */
+.abc {
+  background-color: rgb(240, 205, 211);
+  padding: 40px 20px;
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wedding-image1 {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 20px auto;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: block;
+  object-fit: cover;
+}
+
+.invitation-message {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  padding: 0 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.invitation-message .highlight {
+  font-weight: bold;
+  color: #b71c1c;
+}
+
+.abc h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #d32f2f;
+  margin-bottom: 20px;
+}
+
+.abc p.line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  color: #333;
+  margin: 10px auto;
+  max-width: 100%;
+}
+
+.static-heart {
+  color: #d32f2f;
+  font-size: 2rem;
+  font-family: 'Arial', 'Roboto', sans-serif;
+}
+
+.invitation-card {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #e2dddd;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+.logo-img {
+  width: 120px;
+  margin-bottom: 50px;
+}
+
+.invitation-header {
+  text-align: center;
+  margin-top: -35px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.invite-text {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.venue {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.venue-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #8a1f1f;
+  margin: 10px 0;
+}
+
+.address {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.wedding-photo img.wedding-img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.time-info {
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.time-label {
+  color: #8a1f1f;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.date {
+  color: #8a1f1f;
+  font-size: 2.8rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+
+.date .dot {
+  margin: 0 0.5rem;
+}
+
+.lunar-date {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.dress-code-section {
+  margin-top: 20px;
+}
+
+.dress-code-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.color-circles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+/* Invitation Section */
+.invitation {
+  background-color: white;
+  padding: 40px 20px;
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.invitation h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #d32f2f;
+  margin-bottom: 20px;
+}
+
+.invitation p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.heart {
+  color: #d32f2f;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.details h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: #d32f2f;
+  margin: 20px 0;
+}
+
+.details p {
+  font-size: 1.2rem;
+}
+
+/* Thêm kiểu cho hình ảnh cưới */
+.wedding-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.wedding-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dress-code {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.closing {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* Audio Control */
+audio {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content h1 {
+      font-size: 2.5rem;
+  }
+  .header-content p {
+      font-size: 1rem;
+  }
+  .logo {
+      font-size: 2rem;
+  }
+  .countdown {
+      gap: 10px;
+  }
+  .timer span {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+  }
+  .timer p {
+      font-size: 0.8rem;
+  }
+  .invitation {
+      padding: 20px 10px;
+      margin: 10px;
+      max-width: 90%;
+  }
+  .invitation h2 {
+      font-size: 2rem;
+  }
+  .invitation p {
+      font-size: 0.9rem;
+  }
+  .details h3 {
+      font-size: 1.8rem;
+  }
+  .details p {
+      font-size: 1rem;
+  }
+  .color-circle {
+      width: 25px;
+      height: 25px;
+  }
+  audio {
+      bottom: 5px;
+      right: 5px;
+      width: 200px;
+  }
+  .heart {
+      font-size: 1rem;
+  }
+  .nav-btn {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+  }
+  .prev-btn {
+      left: 10px;
+  }
+  .next-btn {
+      right: 10px;
+  }
+  .slide {
+      background-size: 180%;
+      background-position: 60% 30%;
+  }
+  .lock-icon {
+      width: 80px;
+      height: 80px;
+      right: -20px; /* Điều chỉnh cho màn hình nhỏ */
+  }
+}
